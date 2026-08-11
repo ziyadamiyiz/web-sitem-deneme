@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Yazı | KÂRİ</title>
+
+    <meta
+        name="description"
+        content="KÂRİ — Hukuk, fikir ve düşünce üzerine."
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="container navbar">
+
+        <a
+            href="index.html"
+            class="logo"
+        >
+            KÂRİ
+
+            <span>
+                HUKUK · FİKİR · DÜŞÜNCE
+            </span>
+        </a>
+
+
+        <nav>
+
+            <a href="index.html">
+                Ana Sayfa
+            </a>
+
+            <a href="makaleler.html">
+                Yazılar
+            </a>
+
+            <a href="yazarlar.html">
+                Yazarlar
+            </a>
+
+            <a href="hakkimizda.html">
+                Hakkımızda
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+
+<main>
+
+
+    <article class="article-page">
+
+
+        <div class="container">
+
+
+            <!-- YÜKLENİYOR -->
+
+            <div id="loading">
+
+                <p>
+                    Yazı yükleniyor...
+                </p>
+
+            </div>
+
+
+
+            <!-- HATA -->
+
+            <div
+                id="error"
+                style="display: none;"
+            >
+
+                <p>
+                    Yazı bulunamadı.
+                </p>
+
+            </div>
+
+
+
+            <!-- MAKALE -->
+
+            <div
+                id="article"
+                style="display: none;"
+            >
+
+
+                <div class="article-header">
+
+
+                    <div
+                        class="category"
+                        id="article-category"
+                    >
+                        HUKUK
+                    </div>
+
+
+                    <h1 id="article-title">
+                    </h1>
+
+
+                    <p
+                        class="article-lead"
+                        id="article-summary"
+                    >
+                    </p>
+
+
+                    <div
+                        class="article-meta"
+                        id="article-meta"
+                    >
+                    </div>
+
+
+                </div>
+
+
+
+                <div
+                    class="article-body"
+                    id="article-content"
+                >
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </article>
+
+
+</main>
+
+
+
+<footer>
+
+
+    <div class="container">
+
+
+        <div class="footer-grid">
+
+
+            <div>
+
+                <div class="logo">
+                    KÂRİ
+                </div>
+
+                <p>
+                    Hukuk, fikir ve düşünce üzerine.
+                </p>
+
+            </div>
+
+
+
+            <div>
+
+                <h4>
+                    Keşfet
+                </h4>
+
+
+                <ul>
+
+                    <li>
+
+                        <a href="index.html">
+                            Ana Sayfa
+                        </a>
+
+                    </li>
+
+
+                    <li>
+
+                        <a href="makaleler.html">
+                            Yazılar
+                        </a>
+
+                    </li>
+
+
+                    <li>
+
+                        <a href="yazarlar.html">
+                            Yazarlar
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+
+            <div>
+
+                <h4>
+                    KÂRİ
+                </h4>
+
+
+                <ul>
+
+                    <li>
+
+                        <a href="hakkimizda.html">
+                            Hakkımızda
+                        </a>
+
+                    </li>
+
+
+                    <li>
+
+                        <a href="#">
+                            İletişim
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="copyright">
+
+            © 2026 KÂRİ · Hukuk · Fikir · Düşünce
+
+        </div>
+
+
+    </div>
+
+
+</footer>
+
+
+
+<!-- SUPABASE -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
+
+
+<!-- HTML İÇERİĞİNİ GÜVENLİ GÖSTERMEK İÇİN -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js">
+</script>
+
+
+
+<script>
+
+
+    /*
+    ===========================================
+    SUPABASE BİLGİLERİ
+    ===========================================
+    */
+
+
+    const SUPABASE_URL =
+        "https://ajvbqxzxqvniompgkhum.supabase.co";
+
+
+    const SUPABASE_KEY =
+        "sb_publishable_FuUCGCmQogZaOaaF6pdEGg_7Yd8y1jl";
+
+
+
+    const supabaseClient =
+        supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+
+
+    /*
+    ===========================================
+    URL'DEN SLUG AL
+    ===========================================
+    */
+
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const slug =
+        params.get("slug");
+
+
+
+    /*
+    ===========================================
+    MAKALEYİ GETİR
+    ===========================================
+    */
+
+
+    async function makaleyiGetir() {
+
+
+        const loading =
+            document.getElementById(
+                "loading"
+            );
+
+
+        const errorBox =
+            document.getElementById(
+                "error"
+            );
+
+
+        const articleBox =
+            document.getElementById(
+                "article"
+            );
+
+
+
+        /*
+        SLUG YOKSA
+        */
+
+
+        if (!slug) {
+
+            loading.style.display =
+                "none";
+
+            errorBox.style.display =
+                "block";
+
+            return;
+
+        }
+
+
+
+        /*
+        SUPABASE'DEN YAZIYI ÇEK
+        */
+
+
+        const {
+            data: article,
+            error
+        } =
+            await supabaseClient
+
+                .from("articles")
+
+                .select(`
+                    id,
+                    title,
+                    slug,
+                    summary,
+                    content,
+                    created_at
+                `)
+
+                .eq(
+                    "slug",
+                    slug
+                )
+
+                .eq(
+                    "published",
+                    true
+                )
+
+                .single();
+
+
+
+        /*
+        YAZI BULUNAMADIYSA
+        */
+
+
+        if (
+            error ||
+            !article
+        ) {
+
+
+            console.error(
+                "Supabase hatası:",
+                error
+            );
+
+
+            loading.style.display =
+                "none";
+
+
+            errorBox.style.display =
+                "block";
+
+
+            return;
+
+        }
+
+
+
+        /*
+        ===========================================
+        BAŞLIK
+        ===========================================
+        */
+
+
+        document
+            .getElementById(
+                "article-title"
+            )
+            .textContent =
+                article.title;
+
+
+
+        /*
+        TARAYICI BAŞLIĞINI DA DEĞİŞTİR
+        */
+
+
+        document.title =
+            article.title +
+            " | KÂRİ";
+
+
+
+        /*
+        ===========================================
+        ÖZET
+        ===========================================
+        */
+
+
+        const summary =
+            document.getElementById(
+                "article-summary"
+            );
+
+
+        if (article.summary) {
+
+            summary.textContent =
+                article.summary;
+
+        }
+
+        else {
+
+            summary.style.display =
+                "none";
+
+        }
+
+
+
+        /*
+        ===========================================
+        TARİH
+        ===========================================
+        */
+
+
+        const date =
+            new Date(
+                article.created_at
+            );
+
+
+        const formattedDate =
+            date.toLocaleDateString(
+                "tr-TR",
+                {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+
+
+
+        document
+            .getElementById(
+                "article-meta"
+            )
+            .textContent =
+                "Yazar Adı · " +
+                formattedDate;
+
+
+
+        /*
+        ===========================================
+        MAKALE İÇERİĞİ
+        ===========================================
+        */
+
+
+        const articleContent =
+            document.getElementById(
+                "article-content"
+            );
+
+
+        articleContent.innerHTML =
+            DOMPurify.sanitize(
+                article.content || ""
+            );
+
+
+
+        /*
+        ===========================================
+        SAYFAYI GÖSTER
+        ===========================================
+        */
+
+
+        loading.style.display =
+            "none";
+
+
+        articleBox.style.display =
+            "block";
+
+
+    }
+
+
+
+    /*
+    SAYFA AÇILDIĞINDA ÇALIŞTIR
+    */
+
+
+    makaleyiGetir();
+
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>KÂRİ Yönetim Paneli</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+
+    <style>
+
+        body {
+            background: #f6f4ef;
+        }
+
+        .admin-container {
+            max-width: 950px;
+            margin: 60px auto;
+            padding: 0 24px;
+        }
+
+        .admin-box {
+            background: white;
+            border: 1px solid #ddd8ce;
+            padding: 35px;
+            margin-bottom: 30px;
+        }
+
+        .admin-box h1,
+        .admin-box h2 {
+            margin-top: 0;
+        }
+
+        .field {
+            margin-bottom: 22px;
+        }
+
+        .field label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .field input,
+        .field textarea {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #c9c5bc;
+            padding: 12px 14px;
+            font: inherit;
+            background: white;
+        }
+
+        .field textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .editor-area {
+            min-height: 450px;
+            border: 1px solid #c9c5bc;
+            background: white;
+            padding: 30px;
+            line-height: 1.8;
+            outline: none;
+        }
+
+        .editor-area h2 {
+            margin-top: 40px;
+        }
+
+        .editor-area blockquote {
+            border-left: 3px solid #333;
+            margin-left: 0;
+            padding-left: 20px;
+        }
+
+        .admin-button {
+            display: inline-block;
+            border: 0;
+            background: #222;
+            color: white;
+            padding: 13px 22px;
+            cursor: pointer;
+            font: inherit;
+        }
+
+        .admin-button.secondary {
+            background: #777;
+        }
+
+        .admin-button:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 12px;
+            display: none;
+        }
+
+        .success {
+            background: #e9f5ea;
+        }
+
+        .error {
+            background: #f8e7e7;
+        }
+
+        .file-info {
+            font-size: 14px;
+            opacity: .7;
+            margin-top: 8px;
+        }
+
+        #admin-panel {
+            display: none;
+        }
+
+        #logout-area {
+            text-align: right;
+            margin-bottom: 15px;
+        }
+
+        .image-preview {
+            display: none;
+            margin-top: 18px;
+        }
+
+        .image-preview img {
+            display: block;
+            max-width: 420px;
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border: 1px solid #ddd8ce;
+        }
+
+        .optional {
+            font-weight: normal;
+            opacity: .65;
+            font-size: 14px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="container navbar">
+
+        <a
+            href="index.html"
+            class="logo"
+        >
+            KÂRİ
+
+            <span>
+                HUKUK · FİKİR · DÜŞÜNCE
+            </span>
+        </a>
+
+
+        <nav>
+
+            <a href="index.html">
+                Siteye Dön
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+
+<main class="admin-container">
+
+
+    <!-- ========================== -->
+    <!-- GİRİŞ -->
+    <!-- ========================== -->
+
+    <section
+        class="admin-box"
+        id="login-panel"
+    >
+
+        <h1>
+            KÂRİ Yönetim
+        </h1>
+
+        <p>
+            Yazı yayımlamak için yönetici hesabınızla
+            giriş yapın.
+        </p>
+
+
+        <div class="field">
+
+            <label for="email">
+                E-posta
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                autocomplete="email"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="password">
+                Şifre
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                autocomplete="current-password"
+            >
+
+        </div>
+
+
+        <button
+            class="admin-button"
+            id="login-button"
+        >
+            Giriş Yap
+        </button>
+
+
+        <div
+            class="message error"
+            id="login-error"
+        ></div>
+
+    </section>
+
+
+
+    <!-- ========================== -->
+    <!-- YÖNETİM PANELİ -->
+    <!-- ========================== -->
+
+    <div id="admin-panel">
+
+
+        <div id="logout-area">
+
+            <button
+                class="admin-button secondary"
+                id="logout-button"
+            >
+                Çıkış Yap
+            </button>
+
+        </div>
+
+
+
+        <section class="admin-box">
+
+            <h1>
+                Yeni Yazı
+            </h1>
+
+
+            <p>
+                Word veya PDF dosyası yükleyebilir
+                ya da yazıyı doğrudan editöre yapıştırabilirsiniz.
+                Kapak görseli zorunlu değildir.
+            </p>
+
+
+
+            <!-- WORD / PDF -->
+
+            <div class="field">
+
+                <label for="file-input">
+                    Word / PDF Dosyası
+                    <span class="optional">
+                        (isteğe bağlı)
+                    </span>
+                </label>
+
+                <input
+                    type="file"
+                    id="file-input"
+                    accept=".docx,.pdf"
+                >
+
+                <div
+                    class="file-info"
+                    id="file-info"
+                >
+                    Desteklenen biçimler: .docx ve .pdf
+                </div>
+
+            </div>
+
+
+
+            <!-- KAPAK GÖRSELİ -->
+
+            <div class="field">
+
+                <label for="cover-input">
+                    Kapak Görseli
+                    <span class="optional">
+                        (isteğe bağlı)
+                    </span>
+                </label>
+
+                <input
+                    type="file"
+                    id="cover-input"
+                    accept="image/jpeg,image/png,image/webp"
+                >
+
+                <div class="file-info">
+                    JPG, PNG veya WebP kullanabilirsiniz.
+                    Görsel yüklemeden de yazıyı yayımlayabilirsiniz.
+                </div>
+
+
+                <div
+                    class="image-preview"
+                    id="image-preview"
+                >
+
+                    <img
+                        id="preview-image"
+                        alt="Kapak görseli önizlemesi"
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <!-- BAŞLIK -->
+
+            <div class="field">
+
+                <label for="title">
+                    Başlık
+                </label>
+
+                <input
+                    type="text"
+                    id="title"
+                    placeholder="Örnek: Hukuk ve Adalet Üzerine"
+                >
+
+            </div>
+
+
+
+            <!-- SLUG -->
+
+            <div class="field">
+
+                <label for="slug">
+                    Slug
+                </label>
+
+                <input
+                    type="text"
+                    id="slug"
+                    placeholder="hukuk-ve-adalet-uzerine"
+                >
+
+                <div class="file-info">
+                    Başlığı yazdığınızda otomatik oluşturulur.
+                </div>
+
+            </div>
+
+
+
+            <!-- ÖZET -->
+
+            <div class="field">
+
+                <label for="summary">
+                    Kısa Özet
+                </label>
+
+                <textarea
+                    id="summary"
+                    placeholder="Ana sayfada görünecek kısa özet..."
+                ></textarea>
+
+            </div>
+
+
+
+            <!-- METİN -->
+
+            <div class="field">
+
+                <label>
+                    Yazı Metni
+                </label>
+
+                <div
+                    id="editor"
+                    class="editor-area"
+                    contenteditable="true"
+                ></div>
+
+            </div>
+
+
+
+            <!-- YAYIN -->
+
+            <div class="field">
+
+                <label>
+
+                    <input
+                        type="checkbox"
+                        id="published"
+                        checked
+                    >
+
+                    Hemen yayımla
+
+                </label>
+
+            </div>
+
+
+
+            <div class="admin-actions">
+
+                <button
+                    class="admin-button"
+                    id="publish-button"
+                >
+                    Yayımla
+                </button>
+
+
+                <button
+                    class="admin-button secondary"
+                    id="clear-button"
+                    type="button"
+                >
+                    Formu Temizle
+                </button>
+
+            </div>
+
+
+
+            <div
+                class="message success"
+                id="success-message"
+            ></div>
+
+
+            <div
+                class="message error"
+                id="error-message"
+            ></div>
+
+
+        </section>
+
+
+    </div>
+
+
+</main>
+
+
+
+<!-- SUPABASE -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
+
+
+<!-- WORD -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/mammoth/mammoth.browser.min.js">
+</script>
+
+
+<!-- HTML TEMİZLEME -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js">
+</script>
+
+
+
+<script type="module">
+
+
+    /*
+    ==========================================
+    SUPABASE
+    ==========================================
+    */
+
+
+    const SUPABASE_URL =
+        "https://ajvbqxzxqvniompgkhum.supabase.co";
+
+
+    const SUPABASE_KEY =
+        "sb_publishable_FuUCGCmQogZaOaaF6pdEGg_7Yd8y1jl";
+
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+
+
+    /*
+    ==========================================
+    ELEMENTLER
+    ==========================================
+    */
+
+
+    const loginPanel =
+        document.getElementById("login-panel");
+
+    const adminPanel =
+        document.getElementById("admin-panel");
+
+    const emailInput =
+        document.getElementById("email");
+
+    const passwordInput =
+        document.getElementById("password");
+
+    const loginButton =
+        document.getElementById("login-button");
+
+    const logoutButton =
+        document.getElementById("logout-button");
+
+    const loginError =
+        document.getElementById("login-error");
+
+    const fileInput =
+        document.getElementById("file-input");
+
+    const fileInfo =
+        document.getElementById("file-info");
+
+    const coverInput =
+        document.getElementById("cover-input");
+
+    const imagePreview =
+        document.getElementById("image-preview");
+
+    const previewImage =
+        document.getElementById("preview-image");
+
+    const titleInput =
+        document.getElementById("title");
+
+    const slugInput =
+        document.getElementById("slug");
+
+    const summaryInput =
+        document.getElementById("summary");
+
+    const editor =
+        document.getElementById("editor");
+
+    const publishedInput =
+        document.getElementById("published");
+
+    const publishButton =
+        document.getElementById("publish-button");
+
+    const clearButton =
+        document.getElementById("clear-button");
+
+    const successMessage =
+        document.getElementById("success-message");
+
+    const errorMessage =
+        document.getElementById("error-message");
+
+
+
+    /*
+    ==========================================
+    OTURUM
+    ==========================================
+    */
+
+
+    async function oturumuKontrolEt() {
+
+        const {
+            data: { session }
+        } =
+            await supabaseClient
+                .auth
+                .getSession();
+
+
+        girisEkraniniGoster(
+            !!session
+        );
+
+    }
+
+
+
+    function girisEkraniniGoster(
+        girisYapildi
+    ) {
+
+        if (girisYapildi) {
+
+            loginPanel.style.display =
+                "none";
+
+            adminPanel.style.display =
+                "block";
+
+        }
+
+        else {
+
+            loginPanel.style.display =
+                "block";
+
+            adminPanel.style.display =
+                "none";
+
+        }
+
+    }
+
+
+
+    /*
+    ==========================================
+    GİRİŞ
+    ==========================================
+    */
+
+
+    loginButton.addEventListener(
+        "click",
+        async () => {
+
+            loginError.style.display =
+                "none";
+
+
+            const email =
+                emailInput.value.trim();
+
+            const password =
+                passwordInput.value;
+
+
+            if (!email || !password) {
+
+                hataGoster(
+                    loginError,
+                    "E-posta ve şifreyi girin."
+                );
+
+                return;
+
+            }
+
+
+            loginButton.disabled =
+                true;
+
+            loginButton.textContent =
+                "Giriş yapılıyor...";
+
+
+            const { error } =
+                await supabaseClient
+                    .auth
+                    .signInWithPassword({
+                        email,
+                        password
+                    });
+
+
+            loginButton.disabled =
+                false;
+
+            loginButton.textContent =
+                "Giriş Yap";
+
+
+            if (error) {
+
+                hataGoster(
+                    loginError,
+                    "Giriş başarısız: " +
+                    error.message
+                );
+
+                return;
+
+            }
+
+
+            passwordInput.value = "";
+
+            girisEkraniniGoster(
+                true
+            );
+
+        }
+    );
+
+
+
+    /*
+    ==========================================
+    ÇIKIŞ
+    ==========================================
+    */
+
+
+    logoutButton.addEventListener(
+        "click",
+        async () => {
+
+            await supabaseClient
+                .auth
+                .signOut();
+
+            girisEkraniniGoster(
+                false
+            );
+
+        }
+    );
+
+
+
+    /*
+    ==========================================
+    SLUG
+    ==========================================
+    */
+
+
+    function slugOlustur(text) {
+
+        return text
+            .toLocaleLowerCase("tr-TR")
+            .replace(/ğ/g, "g")
+            .replace(/ü/g, "u")
+            .replace(/ş/g, "s")
+            .replace(/ı/g, "i")
+            .replace(/ö/g, "o")
+            .replace(/ç/g, "c")
+            .normalize("NFD")
+            .replace(
+                /[\u0300-\u036f]/g,
+                ""
+            )
+            .replace(
+                /[^a-z0-9]+/g,
+                "-"
+            )
+            .replace(
+                /^-+|-+$/g,
+                ""
+            );
+
+    }
+
+
+
+    titleInput.addEventListener(
+        "input",
+        () => {
+
+            slugInput.value =
+                slugOlustur(
+                    titleInput.value
+                );
+
+        }
+    );
+
+
+
+    /*
+    ==========================================
+    KAPAK GÖRSELİ ÖNİZLEME
+    ==========================================
+    */
+
+
+    coverInput.addEventListener(
+        "change",
+        () => {
+
+            const file =
+                coverInput.files[0];
+
+
+            if (!file) {
+
+                imagePreview.style.display =
+                    "none";
+
+                previewImage.removeAttribute(
+                    "src"
+                );
+
+                return;
+
+            }
+
+
+            const allowedTypes = [
+                "image/jpeg",
+                "image/png",
+                "image/webp"
+            ];
+
+
+            if (
+                !allowedTypes.includes(
+                    file.type
+                )
+            ) {
+
+                coverInput.value =
+                    "";
+
+                imagePreview.style.display =
+                    "none";
+
+                hataGoster(
+                    errorMessage,
+                    "Kapak görseli JPG, PNG veya WebP olmalıdır."
+                );
+
+                return;
+
+            }
+
+
+            const url =
+                URL.createObjectURL(
+                    file
+                );
+
+
+            previewImage.src =
+                url;
+
+            imagePreview.style.display =
+                "block";
+
+        }
+    );
+
+
+
+    /*
+    ==========================================
+    WORD / PDF
+    ==========================================
+    */
+
+
+    fileInput.addEventListener(
+        "change",
+        async event => {
+
+            const file =
+                event.target.files[0];
+
+
+            if (!file) {
+                return;
+            }
+
+
+            fileInfo.textContent =
+                "Dosya okunuyor: " +
+                file.name;
+
+
+            try {
+
+                if (
+                    file.name
+                        .toLowerCase()
+                        .endsWith(".docx")
+                ) {
+
+                    await wordOku(
+                        file
+                    );
+
+                }
+
+                else if (
+                    file.name
+                        .toLowerCase()
+                        .endsWith(".pdf")
+                ) {
+
+                    await pdfOku(
+                        file
+                    );
+
+                }
+
+                else {
+
+                    throw new Error(
+                        "Yalnızca DOCX veya PDF yükleyebilirsiniz."
+                    );
+
+                }
+
+
+                fileInfo.textContent =
+                    "Dosya başarıyla okundu: " +
+                    file.name;
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    error
+                );
+
+                fileInfo.textContent =
+                    "Dosya okunamadı.";
+
+                hataGoster(
+                    errorMessage,
+                    error.message
+                );
+
+            }
+
+        }
+    );
+
+
+
+    /*
+    ==========================================
+    WORD OKU
+    ==========================================
+    */
+
+
+    async function wordOku(file) {
+
+        const arrayBuffer =
+            await file.arrayBuffer();
+
+
+        const result =
+            await window.mammoth
+                .convertToHtml({
+                    arrayBuffer
+                });
+
+
+        const temizHTML =
+            DOMPurify.sanitize(
+                result.value
+            );
+
+
+        const gecici =
+            document.createElement(
+                "div"
+            );
+
+
+        gecici.innerHTML =
+            temizHTML;
+
+
+        const firstH1 =
+            gecici.querySelector(
+                "h1"
+            );
+
+
+        if (
+            firstH1 &&
+            !titleInput.value.trim()
+        ) {
+
+            titleInput.value =
+                firstH1
+                    .textContent
+                    .trim();
+
+
+            slugInput.value =
+                slugOlustur(
+                    titleInput.value
+                );
+
+
+            firstH1.remove();
+
+        }
+
+
+        editor.innerHTML =
+            gecici.innerHTML;
+
+    }
+
+
+
+    /*
+    ==========================================
+    PDF OKU
+    ==========================================
+    */
+
+
+    async function pdfOku(file) {
+
+        const pdfjsLib =
+            await import(
+                "https://cdn.jsdelivr.net/npm/pdfjs-dist/build/pdf.mjs"
+            );
+
+
+        pdfjsLib
+            .GlobalWorkerOptions
+            .workerSrc =
+            "https://cdn.jsdelivr.net/npm/pdfjs-dist/build/pdf.worker.mjs";
+
+
+        const arrayBuffer =
+            await file.arrayBuffer();
+
+
+        const pdf =
+            await pdfjsLib
+                .getDocument({
+                    data:
+                        arrayBuffer
+                })
+                .promise;
+
+
+        let html = "";
+
+
+        for (
+            let pageNumber = 1;
+            pageNumber <= pdf.numPages;
+            pageNumber++
+        ) {
+
+            const page =
+                await pdf.getPage(
+                    pageNumber
+                );
+
+
+            const textContent =
+                await page
+                    .getTextContent();
+
+
+            let currentLine = "";
+
+            const lines = [];
+
+
+            for (
+                const item
+                of textContent.items
+            ) {
+
+                if (!item.str) {
+                    continue;
+                }
+
+
+                currentLine +=
+                    (
+                        currentLine
+                            ? " "
+                            : ""
+                    )
+                    +
+                    item.str;
+
+
+                if (item.hasEOL) {
+
+                    if (
+                        currentLine.trim()
+                    ) {
+
+                        lines.push(
+                            currentLine.trim()
+                        );
+
+                    }
+
+                    currentLine = "";
+
+                }
+
+            }
+
+
+            if (
+                currentLine.trim()
+            ) {
+
+                lines.push(
+                    currentLine.trim()
+                );
+
+            }
+
+
+            for (
+                const line
+                of lines
+            ) {
+
+                html +=
+                    "<p>" +
+                    htmlEscape(
+                        line
+                    ) +
+                    "</p>";
+
+            }
+
+        }
+
+
+        editor.innerHTML =
+            html;
+
+    }
+
+
+
+    function htmlEscape(text) {
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+        div.textContent =
+            text;
+
+        return div.innerHTML;
+
+    }
+
+
+
+    /*
+    ==========================================
+    GÖRSELİ STORAGE'A YÜKLE
+    ==========================================
+    */
+
+
+    async function kapakGorseliYukle(
+        slug
+    ) {
+
+        const file =
+            coverInput.files[0];
+
+
+        /*
+        GÖRSEL SEÇİLMEDİYSE
+        HATA VERME.
+        NULL DÖNDÜR.
+        */
+
+        if (!file) {
+
+            return null;
+
+        }
+
+
+        const extension =
+            file.name
+                .split(".")
+                .pop()
+                .toLowerCase();
+
+
+        const fileName =
+            slug +
+            "-" +
+            Date.now() +
+            "." +
+            extension;
+
+
+        const filePath =
+            "covers/" +
+            fileName;
+
+
+        const {
+            error: uploadError
+        } =
+            await supabaseClient
+
+                .storage
+
+                .from(
+                    "article-images"
+                )
+
+                .upload(
+                    filePath,
+                    file,
+                    {
+                        cacheControl:
+                            "3600",
+
+                        upsert:
+                            false
+                    }
+                );
+
+
+        if (uploadError) {
+
+            throw new Error(
+                "Kapak görseli yüklenemedi: " +
+                uploadError.message
+            );
+
+        }
+
+
+        const {
+            data
+        } =
+            supabaseClient
+
+                .storage
+
+                .from(
+                    "article-images"
+                )
+
+                .getPublicUrl(
+                    filePath
+                );
+
+
+        return data.publicUrl;
+
+    }
+
+
+
+    /*
+    ==========================================
+    YAYIMLA
+    ==========================================
+    */
+
+
+    publishButton.addEventListener(
+        "click",
+        async () => {
+
+            successMessage.style.display =
+                "none";
+
+            errorMessage.style.display =
+                "none";
+
+
+            const title =
+                titleInput
+                    .value
+                    .trim();
+
+
+            const slug =
+                slugInput
+                    .value
+                    .trim();
+
+
+            const summary =
+                summaryInput
+                    .value
+                    .trim();
+
+
+            const content =
+                DOMPurify.sanitize(
+                    editor.innerHTML
+                );
+
+
+            const published =
+                publishedInput
+                    .checked;
+
+
+            if (!title) {
+
+                hataGoster(
+                    errorMessage,
+                    "Başlık yazmalısınız."
+                );
+
+                return;
+
+            }
+
+
+            if (!slug) {
+
+                hataGoster(
+                    errorMessage,
+                    "Slug boş bırakılamaz."
+                );
+
+                return;
+
+            }
+
+
+            if (
+                !content ||
+                editor.innerText.trim() === ""
+            ) {
+
+                hataGoster(
+                    errorMessage,
+                    "Makale metni boş."
+                );
+
+                return;
+
+            }
+
+
+            publishButton.disabled =
+                true;
+
+
+            publishButton.textContent =
+                "Kaydediliyor...";
+
+
+            try {
+
+                /*
+                GÖRSEL VARSA YÜKLE.
+                YOKSA NULL GELİR.
+                */
+
+                const coverImageUrl =
+                    await kapakGorseliYukle(
+                        slug
+                    );
+
+
+                /*
+                MAKALEYİ KAYDET
+                */
+
+                const {
+                    error
+                } =
+                    await supabaseClient
+
+                        .from(
+                            "articles"
+                        )
+
+                        .insert({
+                            title:
+                                title,
+
+                            slug:
+                                slug,
+
+                            summary:
+                                summary || null,
+
+                            content:
+                                content,
+
+                            cover_image_url:
+                                coverImageUrl,
+
+                            published:
+                                published
+                        });
+
+
+                if (error) {
+
+                    throw new Error(
+                        error.message
+                    );
+
+                }
+
+
+                successMessage.innerHTML =
+                    published
+                    ?
+                    `
+                    Yazı başarıyla yayımlandı.
+                    <br><br>
+
+                    <a
+                        href="makale.html?slug=${encodeURIComponent(slug)}"
+                        target="_blank"
+                    >
+                        Yazıyı görüntüle →
+                    </a>
+                    `
+                    :
+                    "Yazı taslak olarak kaydedildi.";
+
+
+                successMessage.style.display =
+                    "block";
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    error
+                );
+
+
+                hataGoster(
+                    errorMessage,
+                    "Yazı kaydedilemedi: " +
+                    error.message
+                );
+
+            }
+
+            finally {
+
+                publishButton.disabled =
+                    false;
+
+
+                publishButton.textContent =
+                    "Yayımla";
+
+            }
+
+        }
+    );
+
+
+
+    /*
+    ==========================================
+    FORMU TEMİZLE
+    ==========================================
+    */
+
+
+    clearButton.addEventListener(
+        "click",
+        () => {
+
+            fileInput.value = "";
+
+            coverInput.value = "";
+
+            titleInput.value = "";
+
+            slugInput.value = "";
+
+            summaryInput.value = "";
+
+            editor.innerHTML = "";
+
+            publishedInput.checked =
+                true;
+
+
+            previewImage.removeAttribute(
+                "src"
+            );
+
+
+            imagePreview.style.display =
+                "none";
+
+
+            successMessage.style.display =
+                "none";
+
+
+            errorMessage.style.display =
+                "none";
+
+
+            fileInfo.textContent =
+                "Desteklenen biçimler: .docx ve .pdf";
+
+        }
+    );
+
+
+
+    /*
+    ==========================================
+    HATA
+    ==========================================
+    */
+
+
+    function hataGoster(
+        element,
+        message
+    ) {
+
+        element.textContent =
+            message;
+
+        element.style.display =
+            "block";
+
+    }
+
+
+
+    /*
+    ==========================================
+    BAŞLAT
+    ==========================================
+    */
+
+
+    oturumuKontrolEt();
+
+
+</script>
+
+
+</body>
+
+</html>
