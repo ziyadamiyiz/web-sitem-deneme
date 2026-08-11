@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <link rel="stylesheet" href="css/style.css">
 
     <title>KÂRİ — Hukuk · Fikir · Düşünce</title>
@@ -11,358 +17,851 @@
         name="description"
         content="KÂRİ — Hukuk, fikir ve düşünce üzerine nitelikli yazılar."
     >
-
 </head>
+
 
 <body>
 
-    <!-- HEADER -->
 
-    <header>
-        <div class="container navbar">
+<!-- HEADER -->
 
-            <a href="#" class="logo">
-                KÂRİ
-                <span>HUKUK · FİKİR · DÜŞÜNCE</span>
+<header>
+
+    <div class="container navbar">
+
+        <a href="index.html" class="logo">
+
+            KÂRİ
+
+            <span>
+                HUKUK · FİKİR · DÜŞÜNCE
+            </span>
+
+        </a>
+
+
+        <nav>
+
+            <a href="index.html">
+                Ana Sayfa
             </a>
 
-            <nav>
-                <a href="#">Ana Sayfa</a>
-                <a href="#yazilar">Yazılar</a>
-                <a href="#kategoriler">Kategoriler</a>
-                <a href="yazarlar.html">Yazarlar</a>
-                <a href="hakkimizda.html">Hakkımızda</a>
-                <a href="#">İletişim</a>
-            </nav>
+            <a href="makaleler.html">
+                Yazılar
+            </a>
+
+            <a href="#kategoriler">
+                Kategoriler
+            </a>
+
+            <a href="yazarlar.html">
+                Yazarlar
+            </a>
+
+            <a href="hakkimizda.html">
+                Hakkımızda
+            </a>
+
+            <a href="#">
+                İletişim
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+
+<main>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="container">
+
+        <div class="hero-content">
+
+            <div
+    class="eyebrow"
+    data-edit-key="hero_eyebrow"
+>
+    Hukuk · Fikir · Düşünce
+</div>
+
+
+            <h1>
+                <strong>KÂRİ</strong>
+            </h1>
+
+
+            <p
+    class="hero-description"
+    data-edit-key="hero_description"
+>
+    Hukuk, fikir ve düşünce üzerine
+    nitelikli yazılar.
+</p>
+
+
+            <a
+                href="#yazilar"
+                class="button"
+            >
+                Yazıları Keşfet →
+            </a>
 
         </div>
-    </header>
+
+    </div>
+
+</section>
 
 
-    <!-- HERO -->
 
-    <main>
+<!-- SON YAZILAR -->
 
-        <section class="hero">
-            <div class="container">
-                <div class="hero-content">
+<section id="yazilar">
 
-                    <div class="eyebrow">
-                        Hukuk · Fikir · Düşünce
-                    </div>
-
-                    <h1>
-                        <strong>KÂRİ</strong>
-                    </h1>
-
-                    <p class="hero-description">
-                        Hukuk, fikir ve düşünce üzerine
-                        nitelikli yazılar. Farklı meseleler
-                        üzerine derinlikli bir bakış.
-                    </p>
-
-                    <a href="#yazilar" class="button">
-                        Yazıları Keşfet →
-                    </a>
-
-                </div>
-            </div>
-        </section>
+    <div class="container">
 
 
-        <!-- SON YAZILAR -->
+        <div class="section-heading">
 
-        <section id="yazilar">
-
-            <div class="container">
-
-                <div class="section-heading">
-                    <h2>Son Yazılar</h2>
-                    <a href="makaleler.html">Tüm yazılar →</a>
-                </div>
-
-                <div class="articles">
-
-                    <article class="article-card">
-
-                        <div class="article-image">
-                            GÖRSEL
-                        </div>
-
-                        <div class="article-content">
-
-                            <div class="category">
-                                Hukuk
-                            </div>
-
-                           <h3>
-    <a href="makaleler/hukukun-anlami.html">
-        Hukukun Anlamı Üzerine Bir Deneme
-    </a>
-</h3>
-
-                            <p>
-                                Hukukun ne olduğu ve insan
-                                hayatındaki yeri üzerine kısa
-                                bir düşünce.
-                            </p>
-
-                            <div class="article-meta">
-                                Yazar Adı · 11 Ağustos 2026
-                            </div>
-
-                        </div>
-
-                    </article>
+            <h2>
+                Son Yazılar
+            </h2>
 
 
-                    <article class="article-card">
+            <a href="makaleler.html">
+                Tüm yazılar →
+            </a>
 
-                        <div class="article-image">
-                            GÖRSEL
-                        </div>
-
-                        <div class="article-content">
-
-                            <div class="category">
-                                Fikir
-                            </div>
-
-                            <h3>
-                                Modern Dünyada Düşünmek
-                            </h3>
-
-                            <p>
-                                İçinde bulunduğumuz çağın
-                                düşünce dünyasına dair bir
-                                değerlendirme.
-                            </p>
-
-                            <div class="article-meta">
-                                Yazar Adı · 9 Ağustos 2026
-                            </div>
-
-                        </div>
-
-                    </article>
+        </div>
 
 
-                    <article class="article-card">
 
-                        <div class="article-image">
-                            GÖRSEL
-                        </div>
+        <!--
+        BU ALAN SUPABASE TARAFINDAN
+        OTOMATİK DOLDURULACAK
+        -->
 
-                        <div class="article-content">
+        <div
+            class="articles"
+            id="latest-articles"
+        >
 
-                            <div class="category">
-                                Düşünce
-                            </div>
+            <p>
+                Yazılar yükleniyor...
+            </p>
 
-                            <h3>
-                                Gelenek ve Gelecek Arasında
-                            </h3>
+        </div>
 
-                            <p>
-                                Gelenek, değişim ve gelecek
-                                arasındaki ilişkiye dair
-                                düşünceler.
-                            </p>
 
-                            <div class="article-meta">
-                                Yazar Adı · 7 Ağustos 2026
-                            </div>
+    </div>
 
-                        </div>
+</section>
 
-                    </article>
 
-                </div>
+
+<!-- SUPABASEÇIKAN -->
+
+<section>
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <h2>
+                Öne Çıkan
+            </h2>
+
+        </div>
+
+
+
+        <div class="featured-grid">
+
+
+            <div class="featured-image">
+
+                ÖNE ÇIKAN YAZI GÖRSELİ
 
             </div>
 
-        </section>
 
 
-        <!-- ÖNE ÇIKAN -->
+            <div class="featured-content">
 
-        <section>
 
-            <div class="container">
-
-                <div class="section-heading">
-                    <h2>Öne Çıkan</h2>
+                <div class="category">
+                    Hukuk
                 </div>
 
-                <div class="featured-grid">
 
-                    <div class="featured-image">
-                        ÖNE ÇIKAN YAZI GÖRSELİ
-                    </div>
+                <h2>
+                    Hukuk ile Adalet Arasındaki İlişki
+                </h2>
 
-                    <div class="featured-content">
 
-                        <div class="category">
-                            Hukuk
-                        </div>
+                <p>
 
-                        <h2>
-                            Hukuk ile Adalet Arasındaki İlişki
-                        </h2>
+                    Hukukun yalnızca kurallardan ibaret
+                    olup olmadığı ve adalet fikriyle
+                    ilişkisi üzerine kapsamlı bir
+                    değerlendirme.
 
-                        <p>
-                            Hukukun yalnızca kurallardan ibaret
-                            olup olmadığı ve adalet fikriyle
-                            ilişkisi üzerine kapsamlı bir
-                            değerlendirme.
-                        </p>
+                </p>
 
-                        <a href="#" class="button">
-                            Yazıyı Oku →
+
+                <a
+                    href="#"
+                    class="button"
+                >
+                    Yazıyı Oku →
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- KATEGORİLER -->
+
+<section id="kategoriler">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <h2>
+                Kategoriler
+            </h2>
+
+        </div>
+
+
+
+        <div class="category-grid">
+
+
+            <a
+                href="#"
+                class="category-box"
+            >
+
+                <h3>
+                    Hukuk
+                </h3>
+
+                <p>
+                    Hukuk üzerine yazılar →
+                </p>
+
+            </a>
+
+
+
+            <a
+                href="#"
+                class="category-box"
+            >
+
+                <h3>
+                    Fikir
+                </h3>
+
+                <p>
+                    Fikir ve toplum üzerine →
+                </p>
+
+            </a>
+
+
+
+            <a
+                href="#"
+                class="category-box"
+            >
+
+                <h3>
+                    Düşünce
+                </h3>
+
+                <p>
+                    Düşünce ve kültür üzerine →
+                </p>
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- EDİTÖRDEN -->
+
+<section class="editor">
+
+    <div class="container">
+
+
+        <div class="editor-grid">
+
+
+            <div>
+
+                <div class="editor-label">
+                    KÂRİ
+                </div>
+
+
+                <h2>
+                    Editörden
+                </h2>
+
+            </div>
+
+
+
+            <div>
+
+                <p>
+
+                    KÂRİ, hukuk, fikir ve düşünce
+                    alanlarında farklı bakış açılarını
+                    bir araya getirmeyi amaçlayan bir
+                    e-dergidir.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="container">
+
+
+        <div class="footer-grid">
+
+
+            <div>
+
+                <div class="logo">
+
+                    KÂRİ
+
+                    <span>
+                        HUKUK · FİKİR · DÜŞÜNCE
+                    </span>
+
+                </div>
+
+
+                <p>
+
+                    Hukuk, fikir ve düşünce üzerine
+                    nitelikli yazılar.
+
+                </p>
+
+            </div>
+
+
+
+            <div>
+
+                <h4>
+                    Keşfet
+                </h4>
+
+
+                <ul>
+
+                    <li>
+                        <a href="index.html">
+                            Ana Sayfa
                         </a>
+                    </li>
 
-                    </div>
+                    <li>
+                        <a href="makaleler.html">
+                            Yazılar
+                        </a>
+                    </li>
 
-                </div>
+                    <li>
+                        <a href="#kategoriler">
+                            Kategoriler
+                        </a>
+                    </li>
 
-            </div>
+                    <li>
+                        <a href="yazarlar.html">
+                            Yazarlar
+                        </a>
+                    </li>
 
-        </section>
-
-
-        <!-- KATEGORİLER -->
-
-        <section id="kategoriler">
-
-            <div class="container">
-
-                <div class="section-heading">
-                    <h2>Kategoriler</h2>
-                </div>
-
-                <div class="category-grid">
-
-                    <a href="#" class="category-box">
-                        <h3>Hukuk</h3>
-                        <p>Hukuk üzerine yazılar →</p>
-                    </a>
-
-                    <a href="#" class="category-box">
-                        <h3>Fikir</h3>
-                        <p>Fikir ve toplum üzerine →</p>
-                    </a>
-
-                    <a href="#" class="category-box">
-                        <h3>Düşünce</h3>
-                        <p>Düşünce ve kültür üzerine →</p>
-                    </a>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- EDİTÖRDEN -->
-
-        <section class="editor">
-
-            <div class="container">
-
-                <div class="editor-grid">
-
-                    <div>
-
-                        <div class="editor-label">
-                            KÂRİ
-                        </div>
-
-                        <h2>
-                            Editörden
-                        </h2>
-
-                    </div>
-
-                    <div>
-
-                        <p>
-                            KÂRİ, hukuk, fikir ve düşünce
-                            alanlarında farklı bakış açılarını
-                            bir araya getirmeyi amaçlayan bir
-                            e-dergidir.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- FOOTER -->
-
-    <footer>
-
-        <div class="container">
-
-            <div class="footer-grid">
-
-                <div>
-
-                    <div class="logo">
-                        KÂRİ
-                        <span>HUKUK · FİKİR · DÜŞÜNCE</span>
-                    </div>
-
-                    <p>
-                        Hukuk, fikir ve düşünce üzerine
-                        nitelikli yazılar.
-                    </p>
-
-                </div>
-
-
-                <div>
-
-                    <h4>Keşfet</h4>
-
-                    <ul>
-                        <li><a href="#">Ana Sayfa</a></li>
-                        <li><a href="#yazilar">Yazılar</a></li>
-                        <li><a href="#kategoriler">Kategoriler</a></li>
-                        <li><a href="#">Yazarlar</a></li>
-                    </ul>
-
-                </div>
-
-
-                <div>
-
-                    <h4>KÂRİ</h4>
-
-                    <ul>
-                        <li><a href="#">Hakkımızda</a></li>
-                        <li><a href="#">İletişim</a></li>
-                        <li><a href="#">Yayın Politikası</a></li>
-                    </ul>
-
-                </div>
+                </ul>
 
             </div>
 
 
-            <div class="copyright">
-                © 2026 KÂRİ · Hukuk · Fikir · Düşünce
+
+            <div>
+
+                <h4>
+                    KÂRİ
+                </h4>
+
+
+                <ul>
+
+                    <li>
+                        <a href="hakkimizda.html">
+                            Hakkımızda
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            İletişim
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Yayın Politikası
+                        </a>
+                    </li>
+
+                </ul>
+
             </div>
+
 
         </div>
 
-    </footer>
+
+
+        <div class="copyright">
+
+            © 2026 KÂRİ · Hukuk · Fikir · Düşünce
+
+        </div>
+
+
+    </div>
+
+</footer>
+
+
+
+<!-- ====================================== -->
+<!-- SUPABASE -->
+<!-- ====================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
+
+
+<script>
+
+
+    /*
+    =========================================
+    SUPABASE BAĞLANTISI
+    =========================================
+    */
+
+
+    const SUPABASE_URL =
+        "https://ajvbqxzxqvniompgkhum.supabase.co";
+
+
+    const SUPABASE_KEY =
+        "sb_publishable_FuUCGCmQogZaOaaF6pdEGg_7Yd8y1jl";
+
+    const supabaseClient =
+        supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+
+
+    /*
+    =========================================
+    SON YAZILARI GETİR
+    =========================================
+    */
+
+
+    async function sonYazilariGetir() {
+
+
+        const container =
+            document.getElementById(
+                "latest-articles"
+            );
+
+
+
+        /*
+        Supabase'den sadece
+        yayınlanmış en yeni 3 yazıyı al
+        */
+
+
+        const {
+            data: articles,
+            error
+        } =
+            await supabaseClient
+
+                .from("articles")
+
+                .select(`
+                    id,
+                    title,
+                    slug,
+                    summary,
+                    created_at
+                `)
+
+                .eq(
+                    "published",
+                    true
+                )
+
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                )
+
+                .limit(3);
+
+
+
+        /*
+        HATA
+        */
+
+
+        if (error) {
+
+
+            console.error(
+                "Supabase hatası:",
+                error
+            );
+
+
+            container.innerHTML =
+                "<p>Yazılar yüklenirken bir hata oluştu.</p>";
+
+
+            return;
+
+        }
+
+
+
+        /*
+        YAZI YOKSA
+        */
+
+
+        if (
+            !articles ||
+            articles.length === 0
+        ) {
+
+
+            container.innerHTML =
+                "<p>Henüz yayımlanmış bir yazı bulunmuyor.</p>";
+
+
+            return;
+
+        }
+
+
+
+        /*
+        YÜKLENİYOR YAZISINI SİL
+        */
+
+
+        container.innerHTML = "";
+
+
+
+        /*
+        HER MAKALE İÇİN KART OLUŞTUR
+        */
+
+
+        articles.forEach(
+            article => {
+
+
+                /*
+                ARTICLE CARD
+                */
+
+
+                const card =
+                    document.createElement(
+                        "article"
+                    );
+
+
+                card.className =
+                    "article-card";
+
+
+
+                /*
+                GÖRSEL
+                */
+
+
+                const image =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                image.className =
+                    "article-image";
+
+
+                image.textContent =
+                    "GÖRSEL";
+
+
+
+                /*
+                İÇERİK
+                */
+
+
+                const content =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                content.className =
+                    "article-content";
+
+
+
+                /*
+                KATEGORİ
+                ŞİMDİLİK SABİT
+                */
+
+
+                const category =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                category.className =
+                    "category";
+
+
+                category.textContent =
+                    "Yazı";
+
+
+
+                /*
+                BAŞLIK
+                */
+
+
+                const heading =
+                    document.createElement(
+                        "h3"
+                    );
+
+
+                const link =
+                    document.createElement(
+                        "a"
+                    );
+
+
+                link.href =
+                    "makale.html?slug=" +
+                    encodeURIComponent(
+                        article.slug
+                    );
+
+
+                link.textContent =
+                    article.title;
+
+
+                heading.appendChild(
+                    link
+                );
+
+
+
+                /*
+                ÖZET
+                */
+
+
+                const summary =
+                    document.createElement(
+                        "p"
+                    );
+
+
+                summary.textContent =
+                    article.summary || "";
+
+
+
+                /*
+                TARİH
+                */
+
+
+                const meta =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                meta.className =
+                    "article-meta";
+
+
+                const date =
+                    new Date(
+                        article.created_at
+                    );
+
+
+                const formattedDate =
+                    date.toLocaleDateString(
+                        "tr-TR",
+                        {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric"
+                        }
+                    );
+
+
+                meta.textContent =
+                    "Yazar Adı · " +
+                    formattedDate;
+
+
+
+                /*
+                KARTI BİRLEŞTİR
+                */
+
+
+                content.appendChild(
+                    category
+                );
+
+
+                content.appendChild(
+                    heading
+                );
+
+
+                content.appendChild(
+                    summary
+                );
+
+
+                content.appendChild(
+                    meta
+                );
+
+
+                card.appendChild(
+                    image
+                );
+
+
+                card.appendChild(
+                    content
+                );
+
+
+                container.appendChild(
+                    card
+                );
+
+
+            }
+        );
+
+
+    }
+
+
+
+    /*
+    SAYFA AÇILINCA ÇALIŞTIR
+    */
+
+
+    sonYazilariGetir();
+
+
+</script>
+
 
 </body>
+
 </html>
