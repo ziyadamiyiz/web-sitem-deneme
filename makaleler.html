@@ -3,7 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Yazılar | KÂRİ</title>
 
@@ -15,9 +19,12 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
+
 <body>
 
+
 <header>
+
     <div class="container navbar">
 
         <a href="index.html" class="logo">
@@ -33,10 +40,13 @@
         </nav>
 
     </div>
+
 </header>
 
 
+
 <main>
+
 
     <section class="hero">
 
@@ -64,6 +74,7 @@
     </section>
 
 
+
     <section>
 
         <div class="container">
@@ -73,100 +84,12 @@
             </div>
 
 
-            <div class="articles">
+            <div
+                class="articles"
+                id="articles"
+            >
 
-
-                <article class="article-card">
-
-                    <div class="article-image">
-                        GÖRSEL
-                    </div>
-
-                    <div class="article-content">
-
-                        <div class="category">
-                            Hukuk
-                        </div>
-
-                        <h3>
-    <a href="makaleler/hukukun-anlami.html">
-        Hukukun Anlamı Üzerine Bir Deneme
-    </a>
-</h3>
-
-                        <p>
-                            Hukukun ne olduğu ve insan
-                            hayatındaki yeri üzerine.
-                        </p>
-
-                        <div class="article-meta">
-                            Yazar Adı · 11 Ağustos 2026
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <article class="article-card">
-
-                    <div class="article-image">
-                        GÖRSEL
-                    </div>
-
-                    <div class="article-content">
-
-                        <div class="category">
-                            Fikir
-                        </div>
-
-                        <h3>
-                            Modern Dünyada Düşünmek
-                        </h3>
-
-                        <p>
-                            İçinde bulunduğumuz çağın
-                            düşünce dünyasına dair.
-                        </p>
-
-                        <div class="article-meta">
-                            Yazar Adı · 9 Ağustos 2026
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <article class="article-card">
-
-                    <div class="article-image">
-                        GÖRSEL
-                    </div>
-
-                    <div class="article-content">
-
-                        <div class="category">
-                            Düşünce
-                        </div>
-
-                        <h3>
-                            Gelenek ve Gelecek Arasında
-                        </h3>
-
-                        <p>
-                            Gelenek, değişim ve gelecek
-                            arasındaki ilişkiye dair.
-                        </p>
-
-                        <div class="article-meta">
-                            Yazar Adı · 7 Ağustos 2026
-                        </div>
-
-                    </div>
-
-                </article>
-
+                <p>Yazılar yükleniyor...</p>
 
             </div>
 
@@ -174,7 +97,9 @@
 
     </section>
 
+
 </main>
+
 
 
 <footer>
@@ -182,6 +107,7 @@
     <div class="container">
 
         <div class="footer-grid">
+
 
             <div>
 
@@ -196,11 +122,13 @@
             </div>
 
 
+
             <div>
 
                 <h4>Keşfet</h4>
 
                 <ul>
+
                     <li>
                         <a href="index.html">
                             Ana Sayfa
@@ -218,9 +146,11 @@
                             Yazarlar
                         </a>
                     </li>
+
                 </ul>
 
             </div>
+
 
 
             <div>
@@ -228,6 +158,7 @@
                 <h4>KÂRİ</h4>
 
                 <ul>
+
                     <li>
                         <a href="hakkimizda.html">
                             Hakkımızda
@@ -239,11 +170,14 @@
                             İletişim
                         </a>
                     </li>
+
                 </ul>
 
             </div>
 
+
         </div>
+
 
 
         <div class="copyright">
@@ -254,5 +188,317 @@
 
 </footer>
 
+
+
+<!-- SUPABASE -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
+
+
+<script>
+
+    /*
+    ==================================================
+    SUPABASE BAĞLANTISI
+    ==================================================
+    */
+
+    const SUPABASE_URL =
+        "https://ajvbqxzxqvniompgkhum.supabase.co";
+
+    const SUPABASE_KEY =
+        "sb_publishable_FuUCGCmQogZaOaaF6pdEGg_7Yd8y1jl";
+
+
+    const supabaseClient =
+        supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+
+
+    /*
+    ==================================================
+    YAZILARI SUPABASE'DEN GETİR
+    ==================================================
+    */
+
+    async function yazilariGetir() {
+
+        const articlesContainer =
+            document.getElementById("articles");
+
+
+        const { data: articles, error } =
+            await supabaseClient
+                .from("articles")
+                .select(
+                    "id, title, slug, summary, created_at"
+                )
+                .eq("published", true)
+                .order(
+                    "created_at",
+                    { ascending: false }
+                );
+
+
+        /*
+        HATA VARSA
+        */
+
+        if (error) {
+
+            console.error(
+                "Supabase hatası:",
+                error
+            );
+
+            articlesContainer.innerHTML =
+                `
+                <p>
+                    Yazılar yüklenirken
+                    bir hata oluştu.
+                </p>
+                `;
+
+            return;
+        }
+
+
+
+        /*
+        YAYINLANMIŞ YAZI YOKSA
+        */
+
+        if (
+            !articles ||
+            articles.length === 0
+        ) {
+
+            articlesContainer.innerHTML =
+                `
+                <p>
+                    Henüz yayımlanmış
+                    bir yazı bulunmuyor.
+                </p>
+                `;
+
+            return;
+        }
+
+
+
+        /*
+        YÜKLENİYOR YAZISINI TEMİZLE
+        */
+
+        articlesContainer.innerHTML = "";
+
+
+
+        /*
+        HER YAZI İÇİN KART OLUŞTUR
+        */
+
+        articles.forEach(article => {
+
+
+            /*
+            ARTICLE
+            */
+
+            const card =
+                document.createElement(
+                    "article"
+                );
+
+            card.className =
+                "article-card";
+
+
+
+            /*
+            GÖRSEL ALANI
+            */
+
+            const image =
+                document.createElement(
+                    "div"
+                );
+
+            image.className =
+                "article-image";
+
+            image.textContent =
+                "GÖRSEL";
+
+
+
+            /*
+            İÇERİK ALANI
+            */
+
+            const content =
+                document.createElement(
+                    "div"
+                );
+
+            content.className =
+                "article-content";
+
+
+
+            /*
+            KATEGORİ
+            ŞİMDİLİK SABİT
+            */
+
+            const category =
+                document.createElement(
+                    "div"
+                );
+
+            category.className =
+                "category";
+
+            category.textContent =
+                "Yazı";
+
+
+
+            /*
+            BAŞLIK
+            */
+
+            const heading =
+                document.createElement(
+                    "h3"
+                );
+
+
+            const link =
+                document.createElement(
+                    "a"
+                );
+
+
+            link.href =
+                "makale.html?slug=" +
+                encodeURIComponent(
+                    article.slug
+                );
+
+
+            link.textContent =
+                article.title;
+
+
+            heading.appendChild(
+                link
+            );
+
+
+
+            /*
+            ÖZET
+            */
+
+            const summary =
+                document.createElement(
+                    "p"
+                );
+
+
+            summary.textContent =
+                article.summary ||
+                "";
+
+
+
+            /*
+            TARİH
+            */
+
+            const meta =
+                document.createElement(
+                    "div"
+                );
+
+
+            meta.className =
+                "article-meta";
+
+
+            const date =
+                new Date(
+                    article.created_at
+                );
+
+
+            meta.textContent =
+                date.toLocaleDateString(
+                    "tr-TR",
+                    {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric"
+                    }
+                );
+
+
+
+            /*
+            PARÇALARI BİRLEŞTİR
+            */
+
+            content.appendChild(
+                category
+            );
+
+            content.appendChild(
+                heading
+            );
+
+            content.appendChild(
+                summary
+            );
+
+            content.appendChild(
+                meta
+            );
+
+
+            card.appendChild(
+                image
+            );
+
+            card.appendChild(
+                content
+            );
+
+
+            articlesContainer.appendChild(
+                card
+            );
+
+        });
+
+    }
+
+
+
+    /*
+    SAYFA AÇILDIĞINDA ÇALIŞTIR
+    */
+
+    yazilariGetir();
+
+</script>
+
+
 </body>
+
 </html>
